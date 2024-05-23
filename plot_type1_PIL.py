@@ -10,15 +10,19 @@ def randomcolor():
     return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
-def fgbgcolor():
+def color_distance(c1, c2):
+    return sum((a - b) ** 2 for a, b in zip(c1, c2)) ** 0.5
+
+
+def fgbgcolor(min_distance=200):
     rgb_fg = randomcolor()
     rgb_bg = randomcolor()
-    while rgb_bg == rgb_fg:
-        rgb_bg = randomcolor()
+    while color_distance(rgb_fg, rgb_bg) < min_distance:
+        rgb_fg = randomcolor()
     return rgb_fg, rgb_bg
 
 
-def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir="./output_pillow_1"):
+def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir=output):
     image = Image.new("RGB", (size, size), rgb_bg)
     draw = ImageDraw.Draw(image)
 
@@ -36,13 +40,12 @@ def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir="./output_pillow_1"):
             )
 
     filename = f"{rgb_fg[0]}_{rgb_fg[1]}_{rgb_fg[2]}_{rgb_bg[0]}_{rgb_bg[1]}_{rgb_bg[2]}_{size}.png"
-    os.makedirs(output_dir, exist_ok=True)
     image.save(os.path.join(output_dir, filename))
     print(f"Saved image as {filename}")
 
 
 # Generate 720x720 images
-for i in range(2):
+for i in range(20):
     rgb_fg, rgb_bg = fgbgcolor()
     plot_pillow(rgb_fg, rgb_bg, 720, 32)
 # 这里的32是指长或宽上的小方块个数为32，所以32*32=1024个小方块，用来控制间隔大小

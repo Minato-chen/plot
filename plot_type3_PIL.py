@@ -11,19 +11,21 @@ def randomcolor():
     return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
+def color_distance(c1, c2):
+    return sum((a - b) ** 2 for a, b in zip(c1, c2)) ** 0.5
+
+
 # 生成前景色和背景色，确保两者不同
-def fgbgcolor():
+def fgbgcolor(min_distance=200):
     rgb_fg = randomcolor()
     rgb_bg = randomcolor()
-    while rgb_bg == rgb_fg:
-        rgb_bg = randomcolor()
+    while color_distance(rgb_fg, rgb_bg) < min_distance:
+        rgb_fg = randomcolor()
     return rgb_fg, rgb_bg
 
 
 # 绘制图案函数
-def plot_pillow(
-    rgb_fg, rgb_bg, size, n, grid_line_factor=8, output_dir="./output_pillow_3"
-):
+def plot_pillow(rgb_fg, rgb_bg, size, n, grid_line_factor=8, output_dir=output):
     # 创建一个填充前景色的图像
     image = Image.new("RGB", (size, size), rgb_fg)
     draw = ImageDraw.Draw(image)
@@ -53,10 +55,10 @@ def plot_pillow(
 
 
 # 生成720x720的图像
-for i in range(2):
+for i in range(20):
     rgb_fg, rgb_bg = fgbgcolor()
-    plot_pillow(rgb_fg, rgb_bg, 720, 20, 4)
+    plot_pillow(rgb_fg, rgb_bg, 720, 16, 2)
 # size = 720指的是720x720的图像
 # n = 16指的是长或宽为16个小正方形
 # grid_line_factor = 4指的是网格线的宽度影响因子，值越大，网格线越细
-# 4和16或20左右是比较好的一种组合
+# 2和16是比较好的一种组合(网格线越细效果越弱)
