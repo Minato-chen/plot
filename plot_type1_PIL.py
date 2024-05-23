@@ -39,7 +39,9 @@ def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir=output):
                 fill=color,
             )
 
-    filename = f"{rgb_fg[0]}_{rgb_fg[1]}_{rgb_fg[2]}_{rgb_bg[0]}_{rgb_bg[1]}_{rgb_bg[2]}_{size}.png"
+    filename = (
+        f"{rgb_fg[0]}_{rgb_fg[1]}_{rgb_fg[2]}_{rgb_bg[0]}_{rgb_bg[1]}_{rgb_bg[2]}.png"
+    )
     image.save(os.path.join(output_dir, filename))
     print(f"Saved image as {filename}")
 
