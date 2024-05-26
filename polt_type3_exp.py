@@ -59,7 +59,7 @@ def fgbgcolor(r=20, min_distance=80):
         if (
             all(0 <= c <= 255 for c in rgb_bg)
             and min_distance < color_distance(rgb_fg, rgb_bg) < 235
-            and opposite_lab[0] > lab_fg[0]
+            and opposite_lab[0] < lab_fg[0]
         ):
             break
 
