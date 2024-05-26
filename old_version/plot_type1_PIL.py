@@ -14,10 +14,16 @@ def color_distance(c1, c2):
     return sum((a - b) ** 2 for a, b in zip(c1, c2)) ** 0.5
 
 
+def calculate_luminance(r, g, b):
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
 def fgbgcolor(min_distance=200):
     rgb_fg = randomcolor()
     rgb_bg = randomcolor()
-    while color_distance(rgb_fg, rgb_bg) < min_distance:
+    while color_distance(rgb_fg, rgb_bg) < min_distance and calculate_luminance(
+        rgb_fg[0], rgb_fg[1], rgb_fg[2]
+    ) > calculate_luminance(rgb_bg[0], rgb_bg[1], rgb_bg[2]):
         rgb_fg = randomcolor()
     return rgb_fg, rgb_bg
 
