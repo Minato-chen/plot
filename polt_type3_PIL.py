@@ -67,7 +67,7 @@ def fgbgcolor(r=20, min_distance=80):
 
 
 # 绘制图案函数
-def plot_pillow(rgb_fg, rgb_bg, size, n, grid_line_factor, output_dir="./output_exp"):
+def plot_pillow(rgb_fg, rgb_bg, size, n, grid_line_factor, output_dir="./output_type_3"):
     # 创建一个填充前景色的图像
     image = Image.new("RGB", (size, size), rgb_fg)
     draw = ImageDraw.Draw(image)
@@ -111,5 +111,3 @@ for i in range(40):
     # rgb_bg = (255, 255, 0)
     plot_pillow(rgb_fg, rgb_bg, 640, 16, 2.8)
 
-# 2和16是比较好的一种组合(网格线越细效果越弱)
-# 网格粗细只有在相同小方块数量的情况下才有意义
