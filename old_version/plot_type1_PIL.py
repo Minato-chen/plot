@@ -25,7 +25,7 @@ def fgbgcolor(min_distance=200):
     return rgb_fg, rgb_bg
 
 
-def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir="./output_type_1"):
+def plot_type1(rgb_fg, rgb_bg, size, n, output_dir="./output_type_1"):
     image = Image.new("RGB", (size, size), rgb_bg)
     draw = ImageDraw.Draw(image)
 
@@ -54,7 +54,7 @@ def plot_pillow(rgb_fg, rgb_bg, size, n, output_dir="./output_type_1"):
 # Generate 720x720 images
 for i in range(20):
     rgb_fg, rgb_bg = fgbgcolor()
-    plot_pillow(rgb_fg, rgb_bg, 640, 32)
+    plot_type1(rgb_fg, rgb_bg, 640, 32)
 # 这里的32是指长或宽上的小方块个数为32，所以32*32=1024个小方块，用来控制间隔大小
 
 # Generate 640x640 images

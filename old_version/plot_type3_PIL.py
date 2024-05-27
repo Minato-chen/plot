@@ -22,7 +22,7 @@ def fgbgcolor(min_distance=200):
 
 
 # 绘制图案函数
-def plot_pillow(
+def plot_type3(
     rgb_fg, rgb_bg, size, n, grid_line_factor=8, output_dir="./output_type_3"
 ):
     # 创建一个填充前景色的图像
@@ -30,7 +30,8 @@ def plot_pillow(
     draw = ImageDraw.Draw(image)
 
     # 计算网格线的宽度
-    stripe_width = size // (n * grid_line_factor)
+    stripe_width = round(size / (n * grid_line_factor), 1)
+    square_width = round((size - stripe_width * n) / n, 1)
 
     # 画垂直网格线
     for i in range(n + 1):
@@ -48,6 +49,10 @@ def plot_pillow(
     filename = (
         f"{rgb_fg[0]}_{rgb_fg[1]}_{rgb_fg[2]}_{rgb_bg[0]}_{rgb_bg[1]}_{rgb_bg[2]}.png"
     )
+    output_dir = os.path.join(
+        output_dir,
+        "{}_{}_{}_{}_{}".format(size, n, grid_line_factor, square_width, stripe_width),
+    )
     os.makedirs(output_dir, exist_ok=True)
     image.save(os.path.join(output_dir, filename))
     print(f"image saved as {filename}")
@@ -56,7 +61,7 @@ def plot_pillow(
 # 生成720x720的图像
 for i in range(20):
     rgb_fg, rgb_bg = fgbgcolor()
-    plot_pillow(rgb_fg, rgb_bg, 720, 16, 2)
+    plot_type3(rgb_fg, rgb_bg, 720, 16, 2)
 # size = 720指的是720x720的图像
 # n = 16指的是长或宽为16个小正方形
 # grid_line_factor = 4指的是网格线的宽度影响因子，值越大，网格线越细
