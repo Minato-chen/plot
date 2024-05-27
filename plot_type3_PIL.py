@@ -2,9 +2,6 @@ from PIL import Image, ImageDraw
 import random
 import os
 
-output = "./output_pillow_3"
-os.makedirs(output, exist_ok=True)
-
 
 # 随机生成颜色
 def randomcolor():
@@ -25,7 +22,9 @@ def fgbgcolor(min_distance=200):
 
 
 # 绘制图案函数
-def plot_pillow(rgb_fg, rgb_bg, size, n, grid_line_factor=8, output_dir=output):
+def plot_pillow(
+    rgb_fg, rgb_bg, size, n, grid_line_factor=8, output_dir="./output_type_3"
+):
     # 创建一个填充前景色的图像
     image = Image.new("RGB", (size, size), rgb_fg)
     draw = ImageDraw.Draw(image)
